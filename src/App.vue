@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img id="logo" alt="Annotation logo" src="./assets/logo_annotation.png">
+    <HomePage msg="Welcome to NLP annotation tool"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HomePage from './components/HomePage.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    HomePage
+  },
+  
 }
 </script>
 
@@ -24,5 +25,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#logo {
+  width: 150px;
+  height: 150px;
 }
 </style>
