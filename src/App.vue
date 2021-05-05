@@ -1,20 +1,29 @@
 <template>
   <div id="app">
     <img id="logo" alt="Annotation logo" src="./assets/logo_annotation.png">
-    <HomePage v-if="currentPage === 'home'" msg="Welcome to NLP annotation tool" @ner-button-clicked="nerButtonStatus"/>
-    <NerAnnotation v-if="currentPage === 'NerAnnotation'"/>
+    <home-page 
+    v-if="currentPage === 'home'"
+    msg="Welcome to NLP annotation tool" 
+    @ner-button-clicked="nerButtonStatus" 
+    @qa-button-clicked="qaButtonStatus"
+    />
+    
+    <ner-annotation v-if="currentPage === 'NerAnnotation'"/>
+    <qa-annotation v-if="currentPage === 'QaAnnotation'"/>
   </div>
 </template>
 
 <script>
 import HomePage from './components/HomePage.vue'
 import NerAnnotation from './components/NerAnnotation.vue'
+import QaAnnotation from './components/QuestionAnswerAnnotation.vue'
 
 export default {
   name: 'App',
   components: {
     HomePage,
-    NerAnnotation
+    NerAnnotation,
+    QaAnnotation
   },
   data() {
     return {
@@ -24,6 +33,9 @@ export default {
   methods: {
     nerButtonStatus() {
       this.currentPage = "NerAnnotation"
+    },
+    qaButtonStatus () {
+      this.currentPage = "QaAnnotation"
     }
   }
   
