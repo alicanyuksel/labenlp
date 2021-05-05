@@ -16,20 +16,12 @@ export default {
   props: {
     msg: String
   },
-  data() {
-    return {
-      isNerButtonClicked: false,
-      isQaButtonClicked: false
-    }
-  },
   methods: {
     nerButtonClicked() {
-      this.isNerButtonClicked = true
-      console.log("Tıklandı NER")
+      this.$emit('ner-button-clicked')
     },
     qaButtonClicked() {
-      this.isQaButtonClicked = true
-      console.log("Tıklandı QA")
+      this.$emit("qa-button-clicked")
     }
   }
 }
