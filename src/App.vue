@@ -1,44 +1,19 @@
 <template>
   <div id="app">
     <img id="logo" alt="Annotation logo" src="./assets/logo_annotation.png">
-    <home-page 
-    v-if="currentPage === 'home'"
-    msg="Welcome to NLP annotation tool" 
-    @ner-button-clicked="nerButtonStatus" 
-    @qa-button-clicked="qaButtonStatus"
-    />
-    
-    <ner-annotation v-if="currentPage === 'NerAnnotation'"/>
-    <qa-annotation v-if="currentPage === 'QaAnnotation'"/>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
-import HomePage from './components/HomePage.vue'
-import NerAnnotation from './components/NerAnnotation.vue'
-import QaAnnotation from './components/QuestionAnswerAnnotation.vue'
 
 export default {
   name: 'App',
   components: {
-    HomePage,
-    NerAnnotation,
-    QaAnnotation
-  },
-  data() {
-    return {
-      currentPage: "home"
-    }
-  },
-  methods: {
-    nerButtonStatus() {
-      this.currentPage = "NerAnnotation"
-    },
-    qaButtonStatus () {
-      this.currentPage = "QaAnnotation"
-    }
-  }
-  
+    
+  }  
 }
 </script>
 
