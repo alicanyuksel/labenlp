@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img id="logo" alt="Annotation logo" src="./assets/logo_annotation.png">
+    <img id="logo" alt="Annotation logo" src="./assets/labenlp_logo.png">
     <main>
       <router-view></router-view>
     </main>
@@ -28,7 +28,7 @@ export default {
 }
 
 #logo {
-  width: 150px;
-  height: 150px;
+  width: 347px;
+  height: 156px;
 }
 </style>
