@@ -1,6 +1,8 @@
-# <span style="color:brown; font-weight:bold;">Labe</span><span style="color:DarkOrange; font-weight:bold;">N</span><span style="color:brown; font-weight:bold;">L</span><span style="color:DarkOrange; font-weight:bold;">P</span>
+<p align="center">
+<img src="./src/assets/labenlp_logo.png">
+</p>
 
-NLP Annotator:
+**NLP Annotator:**
 
 - NER Annotation
 - Q&A Annotation
