@@ -4,8 +4,8 @@
     <p>
       Please choose for which task you want to make your annotations
     </p>
-    <button id="button" @click="nerButtonClicked">NER Annotation</button>
-    <button id="button" @click="qaButtonClicked">Q&#38;A Annotation</button>
+    <router-link to="/ner">NER Annotation</router-link>
+    <router-link to="/question-answer">Q&#38;A Annotation Annotation</router-link>
     
   </div>
 </template>
@@ -15,14 +15,6 @@ export default {
   name: 'HomePage',
   props: {
     msg: String
-  },
-  methods: {
-    nerButtonClicked() {
-      this.$emit('ner-button-clicked')
-    },
-    qaButtonClicked() {
-      this.$emit("qa-button-clicked")
-    }
   }
 }
 </script>
@@ -43,7 +35,8 @@ li {
 a {
   color: #42b983;
 }
-button { 
+a {
+  text-decoration: none;
   background-color: #f44336;
   margin-left: 5px;
   border: none;
