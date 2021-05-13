@@ -1,5 +1,6 @@
 <template>
 	<div class="hello">
+		<img id="logo" alt="Annotation logo" src="../assets/labenlp_logo.png">
 		<h1>{{ msg }}</h1>
 		<p>Please choose for which task you want to make your annotations</p>
 		<router-link to="/ner">NER Annotation</router-link>

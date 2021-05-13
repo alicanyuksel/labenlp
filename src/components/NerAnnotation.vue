@@ -1,25 +1,31 @@
 <template>
-	<div>
+	<div class="nerAnnotation">
+		<navigation-bar/>
 		<p>This is a tool to annotate your NER models.</p>
 		<load-text-file />
 		<br />
-		<router-link to="/">Back to home</router-link>
 	</div>
 </template>
 
 <script>
 import loadTextFile from "./loadTextFile";
+import navigationBar from "./navigationBar.vue"
 
 export default {
 	name: "NerAnnotation",
 	components: {
 		loadTextFile,
+		navigationBar
 	},
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.nerAnnotation {
+	margin-left: 10%;
+}
+
 h3 {
 	margin: 40px 0 0;
 }

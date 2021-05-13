@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img id="logo" alt="Annotation logo" src="./assets/labenlp_logo.png">
     <main>
       <router-view></router-view>
     </main>
