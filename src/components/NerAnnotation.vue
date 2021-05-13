@@ -1,10 +1,11 @@
 <template>
 	<div class="nerAnnotation">
 		<navigation-bar />
-		<p v-if="textInput == false">
+		<p v-if="inputReceived == false">
 			This is a tool to annotate your NER models.
 		</p>
-		<load-text-file v-if="textInput == false"> </load-text-file>
+		<load-text-file v-if="inputReceived == false"> </load-text-file>
+		<h1>{{ getInputText }}</h1>
 		<br />
 	</div>
 </template>
@@ -12,6 +13,7 @@
 <script>
 import loadTextFile from "./loadTextFile";
 import navigationBar from "./navigationBar.vue";
+import { mapState, mapGetters } from "vuex";
 
 export default {
 	name: "NerAnnotation",
@@ -19,11 +21,12 @@ export default {
 		loadTextFile,
 		navigationBar,
 	},
-	data() {
-		return {
-			textInput: false,
-		};
+	computed: {
+		...mapState(["inputText", "inputReceived"]),
+		...mapGetters(["getInputText"])
 	},
+
+
 };
 </script>
 
