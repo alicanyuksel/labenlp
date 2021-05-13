@@ -1,21 +1,28 @@
 <template>
 	<div class="nerAnnotation">
-		<navigation-bar/>
-		<p>This is a tool to annotate your NER models.</p>
-		<load-text-file />
+		<navigation-bar />
+		<p v-if="textInput == false">
+			This is a tool to annotate your NER models.
+		</p>
+		<load-text-file v-if="textInput == false"> </load-text-file>
 		<br />
 	</div>
 </template>
 
 <script>
 import loadTextFile from "./loadTextFile";
-import navigationBar from "./navigationBar.vue"
+import navigationBar from "./navigationBar.vue";
 
 export default {
 	name: "NerAnnotation",
 	components: {
 		loadTextFile,
-		navigationBar
+		navigationBar,
+	},
+	data() {
+		return {
+			textInput: false,
+		};
 	},
 };
 </script>
@@ -23,7 +30,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .nerAnnotation {
-	margin-left: 10%;
+	position: relative;
 }
 
 h3 {

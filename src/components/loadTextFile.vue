@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="file-upload">
 		<input
 			class="file-input"
 			type="file"
@@ -15,6 +15,11 @@ export default {
 	name: "loadTextFile",
 	emits: ["file-loaded"],
 
+	data() {
+		return {
+			textReceived: false
+		}
+	},
 	methods: {
 		onFileSelected(e) {
 			let files = e.target.files;
@@ -34,6 +39,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.file-upload {
+	position: relative;
+}
+
+input.file-input {
+	text-decoration: none;
+	background-color:silver;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	font-size: 15px;
+	border-radius: 8px;
+	border-style: dashed;
+	border-color:orangered;
+	cursor: pointer;
+	
+}
+
+
+
 h3 {
 	margin: 40px 0 0;
 }
