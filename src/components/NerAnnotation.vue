@@ -1,6 +1,6 @@
 <template>
 	<div class="nerAnnotation">
-		<navigation-bar />
+		<ner-sidebar />
 		<p v-if="inputReceived == false">
 			This is a tool to annotate your NER models.
 		</p>
@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import loadTextFile from "./loadTextFile";
-import navigationBar from "./navigationBar.vue";
+import loadTextFile from "./loadTextFile.vue";
+import nerSidebar from "./nerSidebar.vue";
 import { mapState, mapGetters } from "vuex";
 
 export default {
 	name: "NerAnnotation",
 	components: {
 		loadTextFile,
-		navigationBar,
+		nerSidebar,
 	},
 	computed: {
 		...mapState(["inputText", "inputReceived"]),
