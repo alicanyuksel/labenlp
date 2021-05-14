@@ -2,13 +2,22 @@
 	<div class="wrapper">
         <nav id="sidebar">
             <router-link to="/">Back to home</router-link>
+            <button v-if="inputReceived == true" @click="initializeInput">Reset</button>
         </nav>
     </div>
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex"
+
 export default {
 	components: {},
+    computed: {
+        ...mapState(["inputReceived"])
+    },
+    methods: {
+        ...mapMutations(["initializeInput"])
+    }
 	
 };
 </script>
