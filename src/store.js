@@ -16,6 +16,10 @@ export const store = new Vuex.Store({
         },
         isInputReceived(state, payload) {
             state.inputReceived = payload.value;
+        },
+        initializeInput(state) {
+            state.inputText = ""
+            state.inputReceived = false
         }
     },
     getters: {
