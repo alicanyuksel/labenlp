@@ -47,16 +47,5 @@ li {
 	display: inline-block;
 	margin: 0 10px;
 }
-a {
-	text-decoration: none;
-	background-color: #f44336;
-	margin-left: 5px;
-	border: none;
-	color: white;
-	padding: 10px 32px;
-	text-align: center;
-	font-size: 20px;
-	border-radius: 8px;
-	cursor: pointer;
-}
+
 </style>
