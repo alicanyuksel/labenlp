@@ -6,16 +6,16 @@ import App from './App.vue'
 // import createStore from "vuex";
 import { store } from "./store.js";
 
-import NerAnnotation from './components/NerAnnotation.vue'
-import QuestionAnswerAnnotation from './components/QuestionAnswerAnnotation.vue'
-import HomePage from './components/HomePage.vue'
+import nerAnnotation from './components/nerAnnotation.vue'
+import questionAnswerAnnotation from './components/questionAnswerAnnotation.vue'
+import homePage from './components/homePage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-    { path: "/", component: HomePage },
-    { path: "/ner", component: NerAnnotation },
-    { path: "/question-answer", component: QuestionAnswerAnnotation }
+    { path: "/", component: homePage },
+    { path: "/ner", component: nerAnnotation },
+    { path: "/question-answer", component: questionAnswerAnnotation }
   ]
 
 const router = new VueRouter({

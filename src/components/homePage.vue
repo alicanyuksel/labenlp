@@ -35,7 +35,7 @@ a {
 }
 a {
 	text-decoration: none;
-	background-color: #f44336;
+	background-color: rgb(177, 114, 20);
 	margin-left: 5px;
 	border: none;
 	color: white;

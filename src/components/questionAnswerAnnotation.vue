@@ -7,7 +7,7 @@
 
 <script>
 export default {
-	name: "QaAnnotation",
+	name: "qaAnnotation",
 };
 </script>
 

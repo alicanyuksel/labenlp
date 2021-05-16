@@ -16,7 +16,7 @@ import nerSidebar from "./nerSidebar.vue";
 import { mapState, mapGetters } from "vuex";
 
 export default {
-	name: "NerAnnotation",
+	name: "nerAnnotation",
 	components: {
 		loadTextFile,
 		nerSidebar,
