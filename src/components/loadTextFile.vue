@@ -43,14 +43,14 @@ export default {
 
 input.file-input {
 	text-decoration: none;
-	background-color: silver;
+	background-color: white;
 	color: black;
 	padding: 15px 32px;
 	text-align: center;
 	font-size: 15px;
 	border-radius: 8px;
 	border-style: dashed;
-	border-color: orangered;
+	border-color: rgb(177, 114, 20);
 	cursor: pointer;
 }
 
