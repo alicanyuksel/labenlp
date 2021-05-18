@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<nav id="sidebar">
-			<router-link to="/" @click="initializeInput"><i class="fa fa-home"></i> Home</router-link>
+			<router-link to="/"><i class="fa fa-home"></i> Home</router-link>
 			<button v-if="inputReceived == true" @click="initializeInput">
 				<i class="fa fa-close"></i> Reset
 			</button>
