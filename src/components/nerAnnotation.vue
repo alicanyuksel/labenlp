@@ -56,7 +56,7 @@ export default {
 			var input = document.getElementById("inputClasse").value;
 			this.addClasse({
 				id: 1,
-				name: input,
+				name: input.toUpperCase(),
 				color: "red"
 			});
 		},
