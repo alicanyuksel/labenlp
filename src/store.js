@@ -7,8 +7,19 @@ export const store = new Vuex.Store({
     state: {
         inputText: "",
         inputReceived: false,
-        allClasses: [],
+        allClassesNames: [],
+        allClassesInfos: [],
         anyClasseAdded: false,
+        someColors: [
+            "red",
+            "white",
+            "blue",
+            "brown",
+            "yellow",
+            "green",
+            "purple",
+            "orange",
+        ],
     },
     mutations: {
         saveInputSentence(state, payload) {
@@ -22,11 +33,15 @@ export const store = new Vuex.Store({
             state.inputReceived = false;
         },
         addClasse(state, payload) {
-            if (payload.value != "") {
-                state.allClasses.push(payload.value);
+            if (payload.name != "" && !state.allClassesNames.includes(payload.name)) {
+                state.allClassesInfos.push({
+                    name: payload.name,
+                    bgColor: payload.color
+                });
                 state.anyClasseAdded = true;
+                state.allClassesNames.push(payload.name);
             }
-        },
+        }
     },
     getters: {
         getInputText(state) {
