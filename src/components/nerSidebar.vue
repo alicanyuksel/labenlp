@@ -53,11 +53,15 @@ button:hover {
 }
 
 a {
-	text-decoration: none;
 	color: white;
 	text-align: center;
 	font-size: 20px;
 	border-radius: 8px;
 	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+	color: white;
 }
 </style>
