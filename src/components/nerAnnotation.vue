@@ -9,11 +9,13 @@
 		<div class="card" v-if="inputReceived == true">
 			<div id="input-classes" class="card-header">
 				Add your classes
-				<input type="text" id="inputClasse" value=""/>
-				<input type="submit" value="Ajoute" @click="saveClasse"/>
+				<input type="text" id="inputClasse" value="" />
+				<input type="submit" value="Ajoute" @click="saveClasse" />
 			</div>
-			<div class="card-body">
-				<p class="card-text" v-if="anyClasseAdded == true">{{ getAllClasses }}</p>
+			<div class="card-body" v-if="anyClasseAdded == true">
+				<span v-for="label in allClassesInfos" :key="label.name">
+					<class-block :className="label.name" :bgColor="label.bgColor"/>
+				</span>
 			</div>
 		</div>
 
@@ -29,6 +31,7 @@
 <script>
 import loadTextFile from "./loadTextFile.vue";
 import nerSidebar from "./nerSidebar.vue";
+import classBlock from "./classBlock.vue";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -36,18 +39,28 @@ export default {
 	components: {
 		loadTextFile,
 		nerSidebar,
+		classBlock,
 	},
 	computed: {
-		...mapState(["inputText", "inputReceived", "allClasses","anyClasseAdded"]),
+		...mapState([
+			"inputText",
+			"inputReceived",
+			"allClassesInfos",
+			"anyClasseAdded",
+		]),
 		...mapGetters(["getInputText", "getAllClasses"]),
 	},
 	methods: {
 		...mapMutations(["addClasse"]),
 		saveClasse() {
 			var input = document.getElementById("inputClasse").value;
-			this.addClasse({value:input});
-		}
-	}
+			this.addClasse({
+				id: 1,
+				name: input,
+				color: "red"
+			});
+		},
+	},
 };
 </script>
 
@@ -77,20 +90,8 @@ export default {
 	margin-bottom: 15px;
 }
 
-h3 {
-	margin: 40px 0 0;
-}
-ul {
-	list-style-type: none;
-	padding: 0;
-}
 li {
 	display: inline-block;
 	margin: 0 10px;
-}
-table,
-th,
-td {
-	border: 1px solid black;
 }
 </style>
