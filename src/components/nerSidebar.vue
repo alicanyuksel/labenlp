@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<nav id="sidebar">
 			<router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-			<button v-if="inputReceived == true" @click="initializeInput">
+			<button v-if="inputReceived == true" @click="resetAll">
 				<i class="fa fa-close"></i> Reset
 			</button>
 		</nav>
@@ -18,7 +18,7 @@ export default {
 		...mapState(["inputReceived"]),
 	},
 	methods: {
-		...mapMutations(["initializeInput"]),
+		...mapMutations(["resetAll"]),
 	},
 };
 </script>
