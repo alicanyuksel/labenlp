@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
         allTokens: [],
         anyClasseAdded: false,
         currentClass: {},
+        counterId: 0,
         someColors: [
             "red",
             "white",
@@ -40,7 +41,6 @@ export const store = new Vuex.Store({
         },
         setCurrentClass(state, payload) {
             state.currentClass = payload;
-            console.log(state.currentClass);
         },
         addClass(state, payload) {
             if (
@@ -48,17 +48,24 @@ export const store = new Vuex.Store({
                 !state.allClassesNames.includes(payload.name)
             ) {
                 state.allClassesInfos.push({
-                    id: state.allClassesInfos.length + 1,
+                    // we put a counter to avoid duplication of id when removing
+                    id: state.counterId + 1,
                     name: payload.name,
                     bgColor: payload.color,
                 });
+                state.counterId++;
                 state.anyClasseAdded = true;
                 state.allClassesNames.push(payload.name);
             }
         },
-        deleteClass() {
-            return;
-        }
+        deleteClass(state, payload) {
+            state.allClassesInfos = state.allClassesInfos.filter(
+                (c) => c.id != payload
+            );
+            if (state.currentClass.id === payload) {
+                state.currentClass = state.allClassesInfos[0];
+            }
+        },
     },
     getters: {
         getInputText(state) {
@@ -68,7 +75,7 @@ export const store = new Vuex.Store({
             return state.allClasses;
         },
         getNumberOfClasses(state) {
-            return state.allClassesNames.length;
-        }
+            return state.allClassesInfos.length;
+        },
     },
 });
