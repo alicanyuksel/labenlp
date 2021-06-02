@@ -9,7 +9,9 @@ export const store = new Vuex.Store({
         inputReceived: false,
         allClassesNames: [],
         allClassesInfos: [],
+        allTokens: [],
         anyClasseAdded: false,
+        currentClass: {},
         someColors: [
             "red",
             "white",
@@ -24,6 +26,7 @@ export const store = new Vuex.Store({
     mutations: {
         saveInputSentence(state, payload) {
             state.inputText = payload.value;
+            state.allTokens = state.inputText.split(" ");
         },
         isInputReceived(state, payload) {
             state.inputReceived = payload.value;
@@ -35,12 +38,17 @@ export const store = new Vuex.Store({
             state.allClassesInfos = [];
             state.anyClasseAdded = false;
         },
-        addClasse(state, payload) {
+        setCurrentClass(state, payload) {
+            state.currentClass = payload;
+            console.log(state.currentClass);
+        },
+        addClass(state, payload) {
             if (
                 payload.name != "" &&
                 !state.allClassesNames.includes(payload.name)
             ) {
                 state.allClassesInfos.push({
+                    id: state.allClassesInfos.length + 1,
                     name: payload.name,
                     bgColor: payload.color,
                 });
@@ -48,6 +56,9 @@ export const store = new Vuex.Store({
                 state.allClassesNames.push(payload.name);
             }
         },
+        deleteClass() {
+            return;
+        }
     },
     getters: {
         getInputText(state) {
@@ -56,5 +67,8 @@ export const store = new Vuex.Store({
         getAllClasses(state) {
             return state.allClasses;
         },
+        getNumberOfClasses(state) {
+            return state.allClassesNames.length;
+        }
     },
 });
