@@ -7,7 +7,6 @@ export const store = new Vuex.Store({
     state: {
         inputText: "",
         inputReceived: false,
-        allClassesNames: [],
         allClassesInfos: [],
         allTokens: [],
         anyClasseAdded: false,
@@ -15,7 +14,6 @@ export const store = new Vuex.Store({
         counterId: 0,
         someColors: [
             "red",
-            "white",
             "blue",
             "brown",
             "yellow",
@@ -35,7 +33,6 @@ export const store = new Vuex.Store({
         resetAll(state) {
             state.inputText = "";
             state.inputReceived = false;
-            state.allClassesNames = [];
             state.allClassesInfos = [];
             state.anyClasseAdded = false;
         },
@@ -43,9 +40,10 @@ export const store = new Vuex.Store({
             state.currentClass = payload;
         },
         addClass(state, payload) {
+            // to check if the label already exists or empty           
             if (
                 payload.name != "" &&
-                !state.allClassesNames.includes(payload.name)
+                !state.allClassesInfos.some(item => item.name === payload.name)
             ) {
                 state.allClassesInfos.push({
                     // we put a counter to avoid duplication of id when removing
@@ -55,7 +53,6 @@ export const store = new Vuex.Store({
                 });
                 state.counterId++;
                 state.anyClasseAdded = true;
-                state.allClassesNames.push(payload.name);
             }
         },
         deleteClass(state, payload) {
