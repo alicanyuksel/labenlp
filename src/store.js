@@ -43,6 +43,7 @@ export const store = new Vuex.Store({
             // to check if the label already exists or empty           
             if (
                 payload.name != "" &&
+                payload.name.length <= 20 &&
                 !state.allClassesInfos.some(item => item.name === payload.name)
             ) {
                 state.allClassesInfos.push({
@@ -59,9 +60,6 @@ export const store = new Vuex.Store({
             state.allClassesInfos = state.allClassesInfos.filter(
                 (c) => c.id != payload
             );
-            if (state.currentClass.id === payload) {
-                state.currentClass = state.allClassesInfos[0];
-            }
         },
     },
     getters: {
