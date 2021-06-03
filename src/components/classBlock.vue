@@ -32,10 +32,11 @@ export default {
 
 <style>
 .color-box {
-	display: inline;
+	display: inline-block;
 	background-color: rgb(231, 231, 231);;
 	padding: 10px 10px 10px 10px;
 	margin-right: 10px;
+	margin-bottom: 10px;
 	border-radius: 15px;
 	font-weight: lighter;
 	color: black;
@@ -56,9 +57,8 @@ export default {
 
 .tag-box {
 	display: inline-block;
-	height: 0;
-	width: 10px;
-	padding-bottom: 10px;
+	height: 11px;
+	width: 11px;
 }
 
 #is-delete {
