@@ -62,7 +62,8 @@ export default {
 			"allClassesInfos",
 			"anyClasseAdded",
 			"allTokens",
-			"currentClass"
+			"currentClass",
+			"someColors"
 		]),
 		...mapGetters(["getInputText", "getNumberOfClasses"]),
 	},
@@ -72,7 +73,7 @@ export default {
 			var input = document.getElementById("inputClass").value;
 			this.addClass({
 				name: input.toUpperCase(),
-				color: "red",
+				color: this.someColors[this.allClassesInfos.length % this.someColors.length],
 			});
 
 			// to initialize the input
@@ -134,6 +135,4 @@ li {
 	display: inline-block;
 	margin: 0 10px;
 }
-
-
 </style>
