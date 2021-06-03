@@ -4,7 +4,7 @@
 			<span class="tag-box" :style="{ backgroundColor: bgColor }"></span>
 			{{ className }}
 		</span>
-		<a id="is-delete" @click="deleteLabel(idClass)">&#x2715;</a>
+		<a id="is-delete" @click="deleteClass(idClass)">&#x2715;</a>
 	</div>
 </template>
 
@@ -23,9 +23,6 @@ export default {
 	},
 	methods: {
 		...mapMutations(["deleteClass"]),
-		deleteLabel(c) {
-			this.deleteClass(c);
-		},
 	},
 };
 </script>
@@ -45,10 +42,11 @@ export default {
 }
 
 .color-box-linked {
-	display: inline;
+	display: inline-block;
 	background-color: rgb(218, 156, 63);
 	padding: 10px 10px 10px 10px;
 	margin-right: 10px;
+	margin-bottom: 10px;
 	border-radius: 15px;
 	font-weight: lighter;
 	color: black;
