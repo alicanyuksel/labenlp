@@ -8,34 +8,38 @@
 
 		<div class="card" v-if="inputReceived == true">
 			<div id="input-classes" class="card-header">
-				Add your classes
-				<input type="text" id="inputClass" value="" />
-				<input type="submit" value="Ajoute" @click="saveClass" />
+				Add your labels :
+				<input type="text" id="input-class" value="" />
+				<input
+					type="submit"
+					id="submit-button"
+					value="Ajoute"
+					@click="saveClass"
+				/>
 			</div>
-			<div class="card-body" v-if="anyClasseAdded == true && getNumberOfClasses > 0">
-				<p>You have {{ getNumberOfClasses }} classes.</p>
-				<span class="tag" v-for="label in allClassesInfos" :key="label.id" @click="setCurrentClass(label)">
+			<div
+				class="card-body"
+				v-if="anyClasseAdded == true && getNumberOfClasses > 0"
+			>
+				<span
+					class="tag"
+					v-for="label in allClassesInfos"
+					:key="label.id"
+					@click="setCurrentClass(label)"
+				>
 					<class-block
 						:idClass="label.id"
 						:className="label.name"
 						:bgColor="label.bgColor"
 					/>
 				</span>
-				
 			</div>
 		</div>
 
 		<div class="card" v-if="inputReceived == true">
 			<div class="card-header">Your input</div>
 			<div class="card-body">
-				<p class="card-text" @click="deneme">{{ getInputText }}</p>
-				<!-- <p v-for="token in allTokens" :key="token">{{ token }}</p> -->
-				<!-- <span v-for="token in allTokens" :key="token.index" @click="deneme">
-					<token-block
-						:token="token"
-						bgColor="red"
-					></token-block>
-				</span> -->
+				<token-block/>
 			</div>
 		</div>
 	</div>
@@ -45,7 +49,7 @@
 import loadTextFile from "./loadTextFile.vue";
 import nerSidebar from "./nerSidebar.vue";
 import classBlock from "./classBlock.vue";
-// import tokenBlock from "./tokenBlock.vue";
+import tokenBlock from "./tokenBlock.vue";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -54,30 +58,34 @@ export default {
 		loadTextFile,
 		nerSidebar,
 		classBlock,
-		// tokenBlock,
+		tokenBlock,
 	},
 	computed: {
 		...mapState([
 			"inputReceived",
 			"allClassesInfos",
 			"anyClasseAdded",
-			"allTokens",
+			"allTokenNames",
+			"allTokenDetails",
 			"currentClass",
-			"someColors"
+			"counterIdToken",
+			"someColors",
 		]),
 		...mapGetters(["getInputText", "getNumberOfClasses"]),
 	},
 	methods: {
-		...mapMutations(["addClass", "setCurrentClass"]),
+		...mapMutations(["addClass", "setCurrentClass", "saveTokenLabeled"]),
 		saveClass() {
-			var input = document.getElementById("inputClass").value;
+			var input = document.getElementById("input-class").value;
 			this.addClass({
 				name: input.toUpperCase(),
-				color: this.someColors[this.allClassesInfos.length % this.someColors.length],
+				color: this.someColors[
+					this.allClassesInfos.length % this.someColors.length
+				],
 			});
 
 			// to initialize the input
-			document.getElementById("inputClass").value = '';
+			document.getElementById("input-class").value = "";
 		},
 		deneme() {
 			let selection = document.getSelection();
@@ -89,17 +97,16 @@ export default {
 
 			if (startIndex === endIndex || token === " ") return;
 
-			var tr = selection.getRangeAt(0);
-            var span = document.createElement("mark");
-            span.style.cssText = "background-color:#ff0000";
-            tr.surroundContents(span);
-
 			let data = {
-				token: selection.toString(),
+				tokenId: this.counterIdToken,
+				token: token,
 				startIndex: startIndex,
 				endIndex: endIndex,
 			};
+
 			console.log(data);
+
+			this.saveTokenLabeled(data);
 		},
 	},
 };
@@ -116,6 +123,10 @@ export default {
 
 #input-classes {
 	background: transparent;
+}
+
+#submit-button {
+	margin-left: 10px;
 }
 
 .card-text {
