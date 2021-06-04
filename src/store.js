@@ -35,7 +35,10 @@ export const store = new Vuex.Store({
                     (response) =>
                         (state.allTokenDetails = response.data.tokens_details,
                         state.allTokenNames = response.data.only_tokens)
-                );
+                )
+                .catch(error => {
+                    alert("Could not send the request to the server. Are you sure it's running ?")
+                });
         },
         isInputReceived(state, payload) {
             state.inputReceived = payload.value;
