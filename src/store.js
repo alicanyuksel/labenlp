@@ -11,11 +11,10 @@ export const store = new Vuex.Store({
         allClassesInfos: [],
         allTokenDetails: [],
         allTokenNames: [],
-        allTokensLabeled: [],
+        allTokensIdsSelected: [],
         anyClasseAdded: false,
         currentClass: {},
         counterId: 0,
-        counterIdToken: 0,
         someColors: [
             "red",
             "blue",
@@ -36,7 +35,7 @@ export const store = new Vuex.Store({
                         (state.allTokenDetails = response.data.tokens_details,
                         state.allTokenNames = response.data.only_tokens)
                 )
-                .catch(error => {
+                .catch(function() {
                     alert("Could not send the request to the server. Are you sure it's running ?")
                 });
         },
@@ -75,12 +74,6 @@ export const store = new Vuex.Store({
             state.allClassesInfos = state.allClassesInfos.filter(
                 (c) => c.id != payload
             );
-        },
-        saveTokenLabeled(state, payload) {
-            // add our object on our array
-            state.allTokensLabeled.push(payload);
-            // counter ++
-            state.counterIdToken++;
         },
     },
     getters: {
