@@ -1,27 +1,34 @@
 <template>
-	<div>
+	<mark>
 		<span
-			v-for="token in allTokenNames"
-			:key="token.index"
+			v-for="token in detail"
+			:key="token.start_index"
+			:id="token.start_index"
 		>
-			{{ token }}
+			{{ token.token }}
 		</span>
-	</div>
+	</mark>
 </template>
 
 <script>
-import { mapState } from "vuex"
- 
+import { mapState } from "vuex";
+
 export default {
 	name: "tokenBlock",
 	props: {
-
+		detail: Array,
 	},
 	computed: {
-		...mapState(["allTokenDetails", "allTokenNames"])
-	}
+		...mapState(["allTokenDetails", "allTokenNames"]),
+	},
+	methods: {
+		
+	},
 };
 </script>
 
 <style>
+mark {
+	background-color: unset;
+}
 </style>
