@@ -1,12 +1,12 @@
 <template>
 	<div class="nerAnnotation">
 		<ner-sidebar />
-		<p v-if="inputReceived == false">
+		<p v-if="!isInputReceived">
 			This is a tool to annotate your NER models.
 		</p>
-		<load-text-file v-if="inputReceived == false"> </load-text-file>
+		<load-text-file v-if="!isInputReceived"> </load-text-file>
 
-		<div class="card" v-if="inputReceived == true">
+		<div class="card" v-if="isInputReceived">
 			<div id="input-classes" class="card-header">
 				Add your labels :
 				<input type="text" id="input-class" value="" />
@@ -21,25 +21,14 @@
 				class="card-body"
 				v-if="anyClasseAdded == true && getNumberOfClasses > 0"
 			>
-				<span
-					class="tag"
-					v-for="label in allClassesInfos"
-					:key="label.id"
-					@click="setCurrentClass(label)"
-				>
-					<class-block
-						:idClass="label.id"
-						:className="label.name"
-						:bgColor="label.bgColor"
-					/>
-				</span>
+				<class-block />
 			</div>
 		</div>
 
-		<div class="card" v-if="inputReceived == true">
+		<div class="card" v-if="isInputReceived">
 			<div class="card-header">Your input</div>
 			<div class="card-body">
-				<token-block/>
+				<token-block :detail="allTokenDetails"></token-block>
 			</div>
 		</div>
 	</div>
@@ -62,51 +51,91 @@ export default {
 	},
 	computed: {
 		...mapState([
-			"inputReceived",
 			"allClassesInfos",
 			"anyClasseAdded",
-			"allTokenNames",
 			"allTokenDetails",
 			"currentClass",
-			"counterIdToken",
+			"allTokensIdsSelected",
 			"someColors",
 		]),
-		...mapGetters(["getInputText", "getNumberOfClasses"]),
+		...mapGetters([
+			"isInputReceived",
+			"getInputText",
+			"getNumberOfClasses",
+			"getCurrentClass",
+		]),
+	},
+	created() {
+		document.addEventListener("mouseup", this.selectTokens);
 	},
 	methods: {
-		...mapMutations(["addClass", "setCurrentClass", "saveTokenLabeled"]),
+		...mapMutations(["addClass", "setCurrentClass"]),
 		saveClass() {
-			var input = document.getElementById("input-class").value;
-			this.addClass({
+			let input = document.getElementById("input-class").value;
+			let classInfo = {
 				name: input.toUpperCase(),
 				color: this.someColors[
 					this.allClassesInfos.length % this.someColors.length
 				],
-			});
+			};
+			this.addClass(classInfo);
 
 			// to initialize the input
 			document.getElementById("input-class").value = "";
 		},
-		deneme() {
+		selectTokens() {
 			let selection = document.getSelection();
-			let token, startIndex, endIndex;
 
-			token = selection.toString();
-			startIndex = parseInt(selection.anchorOffset);
-			endIndex = parseInt(selection.focusOffset);
+			if (selection.anchorOffset === selection.focusOffset) return;
+			else if (Object.keys(this.getCurrentClass).length === 0) {
+				alert("You didn't choose any tag to start.");
+				selection.empty();
+				return;
+			}
 
-			if (startIndex === endIndex || token === " ") return;
+			var startIndexSelected = parseInt(
+				selection.anchorNode.parentElement.id
+			);
+			var endIndexSelected = parseInt(
+				selection.focusNode.parentElement.id
+			);
 
-			let data = {
-				tokenId: this.counterIdToken,
-				token: token,
-				startIndex: startIndex,
-				endIndex: endIndex,
-			};
-
-			console.log(data);
-
-			this.saveTokenLabeled(data);
+			if (startIndexSelected === endIndexSelected) {
+				// if startIndex and endIndex are the same, that means the user selected only one token
+				// we save it in our array
+				// this.allTokensIdsSelected.push(startIndexSelected);
+				console.log("Tek token seçildi.");
+			} else {
+				for (const tokenId in this.allTokenDetails) {
+					// for each token id selected, we loop in our array with TOKEN IDS.
+					// If the user selected multiple tokens, we check that and save it in our array.
+					if (
+						startIndexSelected <=
+							this.allTokenDetails[tokenId].start_index &&
+						endIndexSelected >=
+							this.allTokenDetails[tokenId].start_index
+					) {
+						console.log(
+							this.allTokenDetails[tokenId].start_index,
+							"-->",
+							this.allTokenDetails[tokenId].token
+						);
+						selection.empty();
+					} else if (
+						startIndexSelected >=
+							this.allTokenDetails[tokenId].start_index &&
+						endIndexSelected <=
+							this.allTokenDetails[tokenId].start_index
+					) {
+						console.log(
+							this.allTokenDetails[tokenId].start_index,
+							"-->",
+							this.allTokenDetails[tokenId].token
+						);
+						selection.empty();
+					}
+				}
+			}
 		},
 	},
 };
