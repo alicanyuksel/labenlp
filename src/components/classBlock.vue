@@ -1,15 +1,25 @@
 <template>
-	<div class="color-box" :class="{ 'color-box-linked' : idClass === currentClass.id}">
-		<span>
-			<span class="tag-box" :style="{ backgroundColor: bgColor }"></span>
-			{{ className }}
-		</span>
-		<a id="is-delete" @click="deleteClass(idClass)">&#x2715;</a>
+	<div>
+		<div
+			v-for="label in allClassesInfos"
+			:key="label.id"
+			class="color-box"
+			:class="{ 'color-box-linked': label.id === currentClass.id }"
+		>
+			<span @click="setCurrentClass(label)">
+				<span
+					class="tag-box"
+					:style="{ backgroundColor: label.bgColor }"
+				></span>
+				{{ label.name }}
+			</span>
+			<a id="is-delete" @click="deleteClass(label.id)">&#x2715;</a>
+		</div>
 	</div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations } from "vuex";
 
 export default {
 	name: "classBlock",
@@ -19,10 +29,10 @@ export default {
 		bgColor: String,
 	},
 	computed: {
-		...mapState(["currentClass"])
+		...mapState(["currentClass", "allClassesInfos"]),
 	},
 	methods: {
-		...mapMutations(["deleteClass"]),
+		...mapMutations(["deleteClass", "setCurrentClass"]),
 	},
 };
 </script>
@@ -30,7 +40,7 @@ export default {
 <style>
 .color-box {
 	display: inline-block;
-	background-color: rgb(231, 231, 231);;
+	background-color: rgb(231, 231, 231);
 	padding: 10px 10px 10px 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
