@@ -4,49 +4,54 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
+const state = {
+    inputText: "",
+    inputReceived: false,
+    allClassesInfos: [],
+    allTokenDetails: [],
+    allTokensIdsSelected: [],
+    anyClasseAdded: false,
+    currentClass: {},
+    counterId: 0,
+    someColors: [
+        "red",
+        "blue",
+        "brown",
+        "yellow",
+        "green",
+        "purple",
+        "orange",
+    ],
+};
+
+const initialStateCopy = JSON.parse(JSON.stringify(state));
+
 export const store = new Vuex.Store({
-    state: {
-        inputText: "",
-        inputReceived: false,
-        allClassesInfos: [],
-        allTokenDetails: [],
-        allTokenNames: [],
-        allTokensIdsSelected: [],
-        anyClasseAdded: false,
-        currentClass: {},
-        counterId: 0,
-        someColors: [
-            "red",
-            "blue",
-            "brown",
-            "yellow",
-            "green",
-            "purple",
-            "orange",
-        ],
-    },
+    state: state,
     mutations: {
+        setInputReceived(state, payload) {
+            state.inputReceived = payload.value;
+        },
         saveInputSentence(state, payload) {
             state.inputText = payload.value;
             axios
                 .post("http://127.0.0.1:5000/tokenize", {text : state.inputText})
                 .then(
                     (response) =>
-                        (state.allTokenDetails = response.data.tokens_details,
-                        state.allTokenNames = response.data.only_tokens)
+                        (state.allTokenDetails = response.data.tokens_details)
                 )
                 .catch(function() {
                     alert("Could not send the request to the server. Are you sure it's running ?")
                 });
         },
-        isInputReceived(state, payload) {
-            state.inputReceived = payload.value;
+        saveTokens(state, allTokenList) {
+            // TODO
+            for (let i=0; i < allTokenList.length; i++) {
+                console.log(allTokenList[i].token);
+            }
         },
-        resetAll(state) {
-            state.inputText = "";
-            state.inputReceived = false;
-            state.allClassesInfos = [];
-            state.anyClasseAdded = false;
+        resetAll() {
+            store.replaceState(initialStateCopy);
         },
         setCurrentClass(state, payload) {
             state.currentClass = payload;
@@ -74,9 +79,17 @@ export const store = new Vuex.Store({
             state.allClassesInfos = state.allClassesInfos.filter(
                 (c) => c.id != payload
             );
+            // if the class deleted was the current class
+            // we have to reset our state "currentClass"
+            if (state.currentClass.id === payload) {
+                state.currentClass = {}
+            }
         },
     },
     getters: {
+        isInputReceived(state) {
+            return state.inputReceived;
+        },
         getInputText(state) {
             return state.inputText;
         },
@@ -88,6 +101,9 @@ export const store = new Vuex.Store({
         },
         getAllToken(state) {
             return state.allTokenDetails;
+        },
+        getCurrentClass(state) {
+            return state.currentClass;
         }
     },
 });
