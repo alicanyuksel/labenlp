@@ -15,11 +15,9 @@ class Tokenizer(Resource):
         input_text = data["text"]
 
         try:
-            tokens = TreebankWordTokenizer().tokenize(input_text)
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
         except LookupError:
             nltk.download('punkt')
-            tokens = TreebankWordTokenizer().tokenize(input_text)
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
 
         return {
@@ -29,5 +27,4 @@ class Tokenizer(Resource):
                     "end_index": s[1],
                     "token": input_text[s[0]:s[1]]
                 } for s in spans],
-            "only_tokens": tokens,
         }
