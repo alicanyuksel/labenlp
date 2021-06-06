@@ -16,7 +16,7 @@ import { mapMutations } from "vuex";
 export default {
 	name: "loadTextFile",
 	methods: {
-		...mapMutations(["saveInputSentence", "isInputReceived"]),
+		...mapMutations(["saveInputSentence", "setInputReceived"]),
 		readFile(e) {
 			let files = e.target.files;
 			if (!files.length) return;
@@ -25,7 +25,7 @@ export default {
 				this.saveInputSentence({
 					value: event.target.result
 				});
-				this.isInputReceived({
+				this.setInputReceived({
 					value: true
 				});
 			});
