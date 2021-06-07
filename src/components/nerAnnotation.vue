@@ -28,7 +28,14 @@
 		<div class="card" v-if="isInputReceived">
 			<div class="card-header">Your input</div>
 			<div class="card-body">
-				<token-block :detail="allTokenDetails"></token-block>
+				<token-block
+					v-for="token in allTokenDetails"
+					:key="token.id"
+					:tokenId="token.startIndex"
+					:label="token.label"
+					:token="token.token"
+					:bgColor="token.bgColor"
+				></token-block>
 			</div>
 		</div>
 	</div>
@@ -111,24 +118,24 @@ export default {
 					// If the user selected multiple tokens, we check that and save it in our array.
 					if (
 						startIndexSelected <=
-							this.allTokenDetails[tokenId].start_index &&
+							this.allTokenDetails[tokenId].startIndex &&
 						endIndexSelected >=
-							this.allTokenDetails[tokenId].start_index
+							this.allTokenDetails[tokenId].startIndex
 					) {
 						console.log(
-							this.allTokenDetails[tokenId].start_index,
+							this.allTokenDetails[tokenId].startIndex,
 							"-->",
 							this.allTokenDetails[tokenId].token
 						);
 						selection.empty();
 					} else if (
 						startIndexSelected >=
-							this.allTokenDetails[tokenId].start_index &&
+							this.allTokenDetails[tokenId].startIndex &&
 						endIndexSelected <=
-							this.allTokenDetails[tokenId].start_index
+							this.allTokenDetails[tokenId].startIndex
 					) {
 						console.log(
-							this.allTokenDetails[tokenId].start_index,
+							this.allTokenDetails[tokenId].startIndex,
 							"-->",
 							this.allTokenDetails[tokenId].token
 						);

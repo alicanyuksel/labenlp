@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
                 .post("http://127.0.0.1:5000/tokenize", {text : state.inputText})
                 .then(
                     (response) =>
-                        (state.allTokenDetails = response.data.tokens_details)
+                        (state.allTokenDetails = response.data.tokenDetails)
                 )
                 .catch(function() {
                     alert("Could not send the request to the server. Are you sure it's running ?")
