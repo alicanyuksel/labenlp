@@ -21,10 +21,14 @@ class Tokenizer(Resource):
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
 
         return {
-            "tokens_details": [
+            "tokenDetails": [
                 {
-                    "start_index": s[0],
-                    "end_index": s[1],
-                    "token": input_text[s[0]:s[1]]
+                    "token": input_text[s[0]:s[1]],
+                    "type": "token",
+                    "startIndex": s[0],
+                    "endIndex": s[1],
+                    "label": None,
+                    "bgColor": None
+                    
                 } for s in spans],
         }
