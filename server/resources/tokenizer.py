@@ -28,7 +28,7 @@ class Tokenizer(Resource):
                     "startIndex": s[0],
                     "endIndex": s[1],
                     "label": None,
-                    "bgColor": None
-                    
+                    "bgColor": None,
+                    "isActive": True                    
                 } for s in spans],
         }
