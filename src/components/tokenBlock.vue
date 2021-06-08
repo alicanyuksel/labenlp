@@ -1,6 +1,6 @@
 <template>
 	<mark v-bind:style="{ backgroundColor: bgColor }" v-if="isActive">
-		<span :id="tokenId">
+		<span class="token" :id="tokenId">
 			{{ token }}
 		</span>
 
@@ -49,16 +49,25 @@ export default {
 	display: inline-block;
 	background-color: rgb(231, 231, 231);
 	padding: 2px 3px 2px 3px;
-	margin-right: 10px;
+	margin-right: 5px;
 	margin-bottom: 10px;
 	border-radius: 15px;
 	color: black;
-	font-size: 10px;
+	font-size: 11px;
 }
 
 mark {
+	display:inline-block;
 	background-color: unset;
-	padding: 3px 0 3px 0;
+	padding: 5px 0 0 0;
+	margin-bottom: 3px;
+	margin-left: 2px;
+	border-radius: 13px;
+}
+
+span.token {
+	padding-left: 5px;
+	
 }
 
 #is-delete {
