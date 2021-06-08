@@ -120,36 +120,6 @@ export default {
 			} else {
 				this.saveTokenBlock([startIndexSelected, endIndexSelected]);
 				selection.empty();
-
-				// for (const tokenId in this.allTokenDetails) {
-				// 	// for each token id selected, we loop in our array with TOKEN IDS.
-				// 	// If the user selected multiple tokens, we check that and save it in our array.
-				// 	if (
-				// 		startIndexSelected <=
-				// 			this.allTokenDetails[tokenId].startIndex &&
-				// 		endIndexSelected >=
-				// 			this.allTokenDetails[tokenId].startIndex
-				// 	) {
-				// 		console.log(
-				// 			this.allTokenDetails[tokenId].startIndex,
-				// 			"-->",
-				// 			this.allTokenDetails[tokenId].token
-				// 		);
-				// 		selection.empty();
-				// 	} else if (
-				// 		startIndexSelected >=
-				// 			this.allTokenDetails[tokenId].startIndex &&
-				// 		endIndexSelected <=
-				// 			this.allTokenDetails[tokenId].startIndex
-				// 	) {
-				// 		console.log(
-				// 			this.allTokenDetails[tokenId].startIndex,
-				// 			"-->",
-				// 			this.allTokenDetails[tokenId].token
-				// 		);
-				// 		selection.empty();
-				// 	}
-				// }
 			}
 		},
 	},
