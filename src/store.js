@@ -13,18 +13,19 @@ const state = {
     anyClasseAdded: false,
     currentClass: {},
     counterId: 0,
-    someColors: [
-        "red",
-        "blue",
-        "brown",
-        "yellow",
-        "green",
-        "purple",
-        "orange",
-    ],
+    someColors: ["red", "blue", "brown", "yellow", "green", "purple", "orange"],
 };
 
 const initialStateCopy = JSON.parse(JSON.stringify(state));
+
+let initialTokenDetails = {
+    bgColor: null,
+    endIndex: null,
+    label: null,
+    startIndex: null,
+    token: null,
+    type: null,
+};
 
 export const store = new Vuex.Store({
     state: state,
@@ -35,19 +36,153 @@ export const store = new Vuex.Store({
         saveInputSentence(state, payload) {
             state.inputText = payload.value;
             axios
-                .post("http://127.0.0.1:5000/tokenize", {text : state.inputText})
+                .post("http://127.0.0.1:5000/tokenize", {
+                    text: state.inputText,
+                })
                 .then(
                     (response) =>
                         (state.allTokenDetails = response.data.tokenDetails)
                 )
                 .catch(function() {
-                    alert("Could not send the request to the server. Are you sure it's running ?")
+                    alert(
+                        "Could not send the request to the server. Are you sure it's running ?"
+                    );
                 });
         },
-        saveTokens(state, allTokenList) {
+        saveToken(state, payload) {
             // TODO
-            for (let i=0; i < allTokenList.length; i++) {
-                console.log(allTokenList[i].token);
+            // get the list of startIndex
+            let selectedTokenIds = payload;
+
+            // if there is just one token selected
+            if (selectedTokenIds.length === 1) {
+                for (let i = 0; i < state.allTokenDetails.length; i++) {
+                    if (
+                        state.allTokenDetails[i].startIndex ===
+                        selectedTokenIds[0]
+                    ) {
+                        // update our object
+                        state.allTokenDetails[i].bgColor =
+                            state.currentClass.bgColor;
+                        state.allTokenDetails[i].label =
+                            state.currentClass.name;
+                    }
+                }
+            }
+        },
+        saveTokenBlock(state, payload) {
+            let startIndexSelected = payload[0];
+            let endIndexSelected = payload[1];
+
+            let allSelectedTokens = [];
+            let selectedTokenStartIds = [];
+            let selectedTokenEndIds = [];
+
+            // we save also all index for each selected tokens
+            // beacause after that we'll insert one token block at this index
+            // for example : [44,69]
+            // first we find the index corresponding to startIndexSelected (44).
+            // And we insert our token block at this index
+            let indexForInsertTokenBlock = state.allTokenDetails.findIndex(
+                (i) => i.startIndex === startIndexSelected
+            );
+
+            // for each token id selected, we loop in our array with TOKEN IDS.
+            // If the user selected multiple tokens, we check that and save it in our array.
+            for (const tokenId in state.allTokenDetails) {
+                // for this if statement, the idea is :
+                // we have for example an input like [44, 69]
+                // So we have to find all the tokens between this startIndexSelected and endIndexSelected numbers
+                // with a simple loop in our objects array "allTokenDetails"
+                // And then, we put all tokens matched together and edit your type "token" to "token block"
+                if (
+                    (startIndexSelected <=
+                        state.allTokenDetails[tokenId].startIndex &&
+                        endIndexSelected >=
+                            state.allTokenDetails[tokenId].startIndex) ||
+                    (startIndexSelected >=
+                        state.allTokenDetails[tokenId].startIndex &&
+                        endIndexSelected <=
+                            state.allTokenDetails[tokenId].startIndex)
+                ) {
+                    state.allTokenDetails[tokenId].isActive = false;
+
+                    allSelectedTokens.push(
+                        state.allTokenDetails[tokenId].token
+                    );
+                    selectedTokenStartIds.push(
+                        state.allTokenDetails[tokenId].startIndex
+                    );
+                    selectedTokenEndIds.push(
+                        state.allTokenDetails[tokenId].endIndex
+                    );
+                }
+            }
+
+            // delete selected tokens from our array
+            // state.allTokenDetails = state.allTokenDetails.filter(
+            //     (c) => !selectedTokenStartIds.includes(c.startIndex)
+            // );
+
+            // add our token block with the index of the first block's word
+            let tokenBlockToInsert = {
+                token: allSelectedTokens.join(" "),
+                label: state.currentClass.name,
+                startIndex: selectedTokenStartIds[0], // first element of the array
+                endIndex: selectedTokenEndIds.slice(-1)[0], // last element of the array
+                bgColor: state.currentClass.bgColor,
+                type: "tokenBlock",
+                isActive: true,
+                tokenBlockId: selectedTokenStartIds,
+                tokensSelectedForBlock: allSelectedTokens, // we need that to create again these tokens after removing
+            };
+            // insert our token block at the index of the first block's word
+            state.allTokenDetails.splice(
+                indexForInsertTokenBlock,
+                0,
+                tokenBlockToInsert
+            );
+        },
+        removeToken(state, payload) {
+            let selectedTokenToRemove = payload;
+
+            if (selectedTokenToRemove.length === 1) {
+                for (let i = 0; i < state.allTokenDetails.length; i++) {
+                    if (
+                        state.allTokenDetails[i].startIndex ===
+                        selectedTokenToRemove[0]
+                    ) {
+                        // update our object
+                        state.allTokenDetails[i].bgColor = null;
+                        state.allTokenDetails[i].label = null;
+                    }
+                }
+            }
+        },
+        removeTokenBlock(state, payload) {
+            // to get the first token id's in order to match in our array and remove it
+            let tokenBlockId = payload[0][0];
+            let allTokenStartIndex = payload[0];
+            let allTokensSelected = payload[1];
+
+            state.allTokenDetails = state.allTokenDetails.filter((token) =>
+                token.type === "tokenBlock"
+                    ? token.startIndex != tokenBlockId
+                    : state.allTokenDetails
+            );
+
+            for (const idx in allTokenStartIndex) {
+                for (const tokenId in state.allTokenDetails) {
+                    if (
+                        state.allTokenDetails[tokenId].startIndex ===
+                            allTokenStartIndex[idx] &&
+                        state.allTokenDetails[tokenId].type === "token"
+                    ) {
+                        
+                        // put the tokens active again 
+                        state.allTokenDetails[tokenId].isActive = true;
+                    }
+                }
             }
         },
         resetAll() {
@@ -82,7 +217,7 @@ export const store = new Vuex.Store({
             // if the class deleted was the current class
             // we have to reset our state "currentClass"
             if (state.currentClass.id === payload) {
-                state.currentClass = {}
+                state.currentClass = {};
             }
         },
     },
@@ -104,6 +239,6 @@ export const store = new Vuex.Store({
         },
         getCurrentClass(state) {
             return state.currentClass;
-        }
+        },
     },
 });
