@@ -111,6 +111,9 @@ export default {
 				selection.focusNode.parentElement.id
 			);
 
+			// check if the user clicks the right place
+			if (isNaN(startIndexSelected)) return;
+		
 			if (startIndexSelected === endIndexSelected) {
 				// if startIndex and endIndex are the same, that means the user selected only one token
 				// we send it to our function to save it in our objects array
