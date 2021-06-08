@@ -35,6 +35,10 @@
 					:label="token.label"
 					:token="token.token"
 					:bgColor="token.bgColor"
+					:type="token.type"
+					:isActive="token.isActive"
+					:tokenBlockId="token.type === 'tokenBlock' ? token.tokenBlockId : null"
+					:tokensSelectedForBlock="token.type === 'tokenBlock' ? token.tokensSelectedForBlock : null"
 				></token-block>
 			</div>
 		</div>
@@ -76,7 +80,7 @@ export default {
 		document.addEventListener("mouseup", this.selectTokens);
 	},
 	methods: {
-		...mapMutations(["addClass", "setCurrentClass"]),
+		...mapMutations(["addClass", "setCurrentClass","saveToken","saveTokenBlock"]),
 		saveClass() {
 			let input = document.getElementById("input-class").value;
 			let classInfo = {
@@ -109,39 +113,43 @@ export default {
 
 			if (startIndexSelected === endIndexSelected) {
 				// if startIndex and endIndex are the same, that means the user selected only one token
-				// we save it in our array
-				// this.allTokensIdsSelected.push(startIndexSelected);
-				console.log("Tek token seçildi.");
+				// we send it to our function to save it in our objects array
+				this.saveToken([startIndexSelected]);
+				selection.empty();
+
 			} else {
-				for (const tokenId in this.allTokenDetails) {
-					// for each token id selected, we loop in our array with TOKEN IDS.
-					// If the user selected multiple tokens, we check that and save it in our array.
-					if (
-						startIndexSelected <=
-							this.allTokenDetails[tokenId].startIndex &&
-						endIndexSelected >=
-							this.allTokenDetails[tokenId].startIndex
-					) {
-						console.log(
-							this.allTokenDetails[tokenId].startIndex,
-							"-->",
-							this.allTokenDetails[tokenId].token
-						);
-						selection.empty();
-					} else if (
-						startIndexSelected >=
-							this.allTokenDetails[tokenId].startIndex &&
-						endIndexSelected <=
-							this.allTokenDetails[tokenId].startIndex
-					) {
-						console.log(
-							this.allTokenDetails[tokenId].startIndex,
-							"-->",
-							this.allTokenDetails[tokenId].token
-						);
-						selection.empty();
-					}
-				}
+				this.saveTokenBlock([startIndexSelected, endIndexSelected]);
+				selection.empty();
+
+				// for (const tokenId in this.allTokenDetails) {
+				// 	// for each token id selected, we loop in our array with TOKEN IDS.
+				// 	// If the user selected multiple tokens, we check that and save it in our array.
+				// 	if (
+				// 		startIndexSelected <=
+				// 			this.allTokenDetails[tokenId].startIndex &&
+				// 		endIndexSelected >=
+				// 			this.allTokenDetails[tokenId].startIndex
+				// 	) {
+				// 		console.log(
+				// 			this.allTokenDetails[tokenId].startIndex,
+				// 			"-->",
+				// 			this.allTokenDetails[tokenId].token
+				// 		);
+				// 		selection.empty();
+				// 	} else if (
+				// 		startIndexSelected >=
+				// 			this.allTokenDetails[tokenId].startIndex &&
+				// 		endIndexSelected <=
+				// 			this.allTokenDetails[tokenId].startIndex
+				// 	) {
+				// 		console.log(
+				// 			this.allTokenDetails[tokenId].startIndex,
+				// 			"-->",
+				// 			this.allTokenDetails[tokenId].token
+				// 		);
+				// 		selection.empty();
+				// 	}
+				// }
 			}
 		},
 	},
