@@ -13,7 +13,7 @@ const state = {
     anyClasseAdded: false,
     currentClass: {},
     counterId: 0,
-    someColors: ["red", "blue", "brown", "yellow", "green", "purple", "orange"],
+    someColors: ["#f29191", "#cee5d0", "#ffeb99", "#deedf0", "#bbbbbb", "#e4bad4", "#f69e7b"],
 };
 
 const initialStateCopy = JSON.parse(JSON.stringify(state));
