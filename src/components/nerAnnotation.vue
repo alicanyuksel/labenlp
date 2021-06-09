@@ -144,6 +144,12 @@ export default {
 
 #submit-button {
 	margin-left: 10px;
+	background-color: rgb(228, 180, 103);
+	border-style:none;
+	color: black;
+	border-radius: 8px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  	cursor: pointer;
 }
 
 .card-text {
@@ -151,12 +157,13 @@ export default {
 }
 
 .card-header {
-	background: rgb(250, 210, 146);
+	background: rgb(228, 180, 103);
 }
 
 .card {
 	border-color: rgb(177, 114, 20);
 	margin-bottom: 15px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 li {
