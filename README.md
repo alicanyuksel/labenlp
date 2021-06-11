@@ -9,6 +9,14 @@
 
 to be completed !
 
+# Screenshot from the first version beta
+
+<p align="center">
+<img src="./src/assets/ss-first-version.png">
+</p>
+
+
+
 TODO:
 
 - add a server side in order to have a tokenizer
