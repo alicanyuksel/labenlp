@@ -4,20 +4,18 @@
 
 **NLP Annotator:**
 
-- NER Annotation
-- Q&A Annotation
+- NER Annotation --> 65%
+- Q&A Annotation --> 0%
 
-to be completed !
+**to be completed !**
 
-# Screenshot from the first version beta
+## Screenshot from the first version beta
 
 <p align="center">
 <img src="./src/assets/ss-first-version.png">
 </p>
 
+## TODO:
 
-
-TODO:
-
-- add a server side in order to have a tokenizer
-- why not, add also a database, so we could save the annotations and come back to it later to finish it.
+- why not, add a database, so we could save the annotations and come back to it later to finish it.
+- some improvement for token management
