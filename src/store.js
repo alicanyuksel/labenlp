@@ -18,15 +18,6 @@ const state = {
 
 const initialStateCopy = JSON.parse(JSON.stringify(state));
 
-let initialTokenDetails = {
-    bgColor: null,
-    endIndex: null,
-    label: null,
-    startIndex: null,
-    token: null,
-    type: null,
-};
-
 export const store = new Vuex.Store({
     state: state,
     mutations: {
@@ -163,7 +154,6 @@ export const store = new Vuex.Store({
             // to get the first token id's in order to match in our array and remove it
             let tokenBlockId = payload[0][0];
             let allTokenStartIndex = payload[0];
-            let allTokensSelected = payload[1];
 
             state.allTokenDetails = state.allTokenDetails.filter((token) =>
                 token.type === "tokenBlock"
