@@ -74,7 +74,7 @@ export const store = new Vuex.Store({
             // for example : [44,69]
             // first we find the index corresponding to startIndexSelected (44).
             // And we insert our token block at this index
-            let indexForInsertTokenBlock = state.allTokenDetails.findIndex(
+            let indexToInsertTokenBlock = state.allTokenDetails.findIndex(
                 (i) => i.startIndex === startIndexSelected
             );
 
@@ -85,7 +85,7 @@ export const store = new Vuex.Store({
                 // we have for example an input like [44, 69]
                 // So we have to find all the tokens between this startIndexSelected and endIndexSelected numbers
                 // with a simple loop in our objects array "allTokenDetails"
-                // And then, we put all tokens matched together and edit your type "token" to "token block"
+                // And then, we put all tokens matched together with start and endIndex informations
                 if (
                     (startIndexSelected <=
                         state.allTokenDetails[tokenId].startIndex &&
@@ -110,11 +110,6 @@ export const store = new Vuex.Store({
                 }
             }
 
-            // delete selected tokens from our array
-            // state.allTokenDetails = state.allTokenDetails.filter(
-            //     (c) => !selectedTokenStartIds.includes(c.startIndex)
-            // );
-
             // add our token block with the index of the first block's word
             let tokenBlockToInsert = {
                 token: allSelectedTokens.join(" "),
@@ -129,7 +124,7 @@ export const store = new Vuex.Store({
             };
             // insert our token block at the index of the first block's word
             state.allTokenDetails.splice(
-                indexForInsertTokenBlock,
+                indexToInsertTokenBlock,
                 0,
                 tokenBlockToInsert
             );
@@ -175,9 +170,6 @@ export const store = new Vuex.Store({
                 }
             }
         },
-        resetAll() {
-            store.replaceState(initialStateCopy);
-        },
         setCurrentClass(state, payload) {
             state.currentClass = payload;
         },
@@ -209,6 +201,9 @@ export const store = new Vuex.Store({
             if (state.currentClass.id === payload) {
                 state.currentClass = {};
             }
+        },
+        resetAll() {
+            store.replaceState(initialStateCopy);
         },
     },
     getters: {
