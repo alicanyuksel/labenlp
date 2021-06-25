@@ -37,8 +37,14 @@
 					:bgColor="token.bgColor"
 					:type="token.type"
 					:isActive="token.isActive"
-					:tokenBlockId="token.type === 'tokenBlock' ? token.tokenBlockId : null"
-					:tokensSelectedForBlock="token.type === 'tokenBlock' ? token.tokensSelectedForBlock : null"
+					:tokenBlockId="
+						token.type === 'tokenBlock' ? token.tokenBlockId : null
+					"
+					:tokensSelectedForBlock="
+						token.type === 'tokenBlock'
+							? token.tokensSelectedForBlock
+							: null
+					"
 				></token-block>
 			</div>
 		</div>
@@ -80,7 +86,12 @@ export default {
 		document.addEventListener("mouseup", this.selectTokens);
 	},
 	methods: {
-		...mapMutations(["addClass", "setCurrentClass","saveToken","saveTokenBlock"]),
+		...mapMutations([
+			"addClass",
+			"setCurrentClass",
+			"saveToken",
+			"saveTokenBlock",
+		]),
 		saveClass() {
 			let input = document.getElementById("input-class").value;
 			let classInfo = {
@@ -113,13 +124,12 @@ export default {
 
 			// check if the user clicks the right place
 			if (isNaN(startIndexSelected)) return;
-		
+
 			if (startIndexSelected === endIndexSelected) {
 				// if startIndex and endIndex are the same, that means the user selected only one token
 				// we send it to our function to save it in our objects array
 				this.saveToken([startIndexSelected]);
 				selection.empty();
-
 			} else {
 				this.saveTokenBlock([startIndexSelected, endIndexSelected]);
 				selection.empty();
@@ -145,11 +155,11 @@ export default {
 #submit-button {
 	margin-left: 10px;
 	background-color: rgb(228, 180, 103);
-	border-style:none;
+	border-style: none;
 	color: black;
 	border-radius: 8px;
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  	cursor: pointer;
+	cursor: pointer;
 }
 
 .card-text {

@@ -193,6 +193,10 @@ export const store = new Vuex.Store({
             }
         },
         deleteClass(state, payload) {
+            if (state.allClassesInfos.length === 0) {
+                state.anyClasseAdded = false;
+            }
+
             state.allClassesInfos = state.allClassesInfos.filter(
                 (c) => c.id != payload
             );
