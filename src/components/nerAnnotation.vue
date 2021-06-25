@@ -47,6 +47,9 @@
 					"
 				></token-block>
 			</div>
+			<div class="card-footer text-muted">
+				<span id="footer-button" @click="exportAnnotation">Export JSON</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -91,6 +94,7 @@ export default {
 			"setCurrentClass",
 			"saveToken",
 			"saveTokenBlock",
+			"exportAnnotation"
 		]),
 		saveClass() {
 			let input = document.getElementById("input-class").value;
@@ -161,6 +165,20 @@ export default {
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
 }
+
+#footer-button {
+	text-decoration: none;
+	margin-left: 10px;
+	background-color: rgb(228, 180, 103);
+	padding: 4px;
+	border-style: none;
+	color: black;
+	font-size: 13px;
+	border-radius: 8px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+
 
 .card-text {
 	font-size: 20px;

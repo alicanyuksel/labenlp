@@ -13,7 +13,6 @@
 				></span>
 				{{ label.name }}
 			</span>
-			<!-- <a id="is-delete" @click="deleteClassAndAnnotations(label)" -->
 			<a id="is-delete" @click="deleteClassAndAnnotations(label)"
 				>&#x2715;</a
 			>
@@ -42,8 +41,8 @@ export default {
 
 			// to find annotations belongs to label tag (class) and initialize them
 			for (const token in this.allTokenDetails) {
-				// check if token exists 
-				// because the length will change while for loop 
+				// check if token exists
+				// because the length will change while for loop
 				// once we remove the tokens tagged with the label selected
 				if (this.allTokenDetails[token] !== undefined) {
 					if (this.allTokenDetails[token].label === label.name) {

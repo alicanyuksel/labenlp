@@ -13,7 +13,15 @@ const state = {
     anyClasseAdded: false,
     currentClass: {},
     counterId: 0,
-    someColors: ["#f29191", "#cee5d0", "#ffeb99", "#deedf0", "#bbbbbb", "#e4bad4", "#f69e7b"],
+    someColors: [
+        "#f29191",
+        "#cee5d0",
+        "#ffeb99",
+        "#deedf0",
+        "#bbbbbb",
+        "#e4bad4",
+        "#f69e7b",
+    ],
 };
 
 const initialStateCopy = JSON.parse(JSON.stringify(state));
@@ -163,8 +171,7 @@ export const store = new Vuex.Store({
                             allTokenStartIndex[idx] &&
                         state.allTokenDetails[tokenId].type === "token"
                     ) {
-                        
-                        // put the tokens active again 
+                        // put the tokens active again
                         state.allTokenDetails[tokenId].isActive = true;
                     }
                 }
@@ -205,6 +212,44 @@ export const store = new Vuex.Store({
             if (state.currentClass.id === payload) {
                 state.currentClass = {};
             }
+        },
+        exportAnnotation(state) {
+            const filename = "entities_for_spacy.json";
+
+            const allClasses = state.allClassesInfos.map((x) => x.name);
+            let allEntities = [];
+            for (let idx in state.allTokenDetails) {
+                if (state.allTokenDetails[idx].label !== null) {
+                    allEntities.push([
+                        state.allTokenDetails[idx].startIndex,
+                        state.allTokenDetails[idx].endIndex,
+                        state.allTokenDetails[idx].label,
+                    ]);
+                }
+            }
+
+            // create an object before convert it into json
+            let output = {
+                classes: allClasses,
+                annotations: [
+                    state.inputText,
+                    {
+                        entities: allEntities,
+                    },
+                ],
+            };
+            
+            const jsonOutput = JSON.stringify(output, null, 4);
+            let element = document.createElement("a");
+            element.setAttribute(
+                "href",
+                "data:text/plain;charset=utf-8," + encodeURIComponent(jsonOutput)
+            );
+            element.setAttribute("download", filename);
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         },
         resetAll() {
             store.replaceState(initialStateCopy);
