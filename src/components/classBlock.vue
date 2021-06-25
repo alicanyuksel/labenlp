@@ -13,7 +13,10 @@
 				></span>
 				{{ label.name }}
 			</span>
-			<a id="is-delete" @click="deleteClass(label.id)">&#x2715;</a>
+			<!-- <a id="is-delete" @click="deleteClassAndAnnotations(label)" -->
+			<a id="is-delete" @click="deleteClassAndAnnotations(label)"
+				>&#x2715;</a
+			>
 		</div>
 	</div>
 </template>
@@ -23,16 +26,42 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
 	name: "classBlock",
-	props: {
-		idClass: Number,
-		className: String,
-		bgColor: String,
-	},
 	computed: {
-		...mapState(["currentClass", "allClassesInfos"]),
+		...mapState(["currentClass", "allClassesInfos", "allTokenDetails"]),
 	},
 	methods: {
-		...mapMutations(["deleteClass", "setCurrentClass"]),
+		...mapMutations([
+			"deleteClass",
+			"setCurrentClass",
+			"removeToken",
+			"removeTokenBlock",
+		]),
+		deleteClassAndAnnotations(label) {
+			// delete the class selected
+			this.deleteClass(label.id);
+
+			// to find annotations belongs to label tag (class) and initialize them
+			for (const token in this.allTokenDetails) {
+				// check if token exists 
+				// because the length will change while for loop 
+				// once we remove the tokens tagged with the label selected
+				if (this.allTokenDetails[token] !== undefined) {
+					if (this.allTokenDetails[token].label === label.name) {
+						if (this.allTokenDetails[token].type === "token") {
+							this.removeToken([
+								this.allTokenDetails[token].startIndex,
+							]);
+						} else if (
+							this.allTokenDetails[token].type === "tokenBlock"
+						) {
+							this.removeTokenBlock([
+								this.allTokenDetails[token].tokenBlockId,
+							]);
+						}
+					}
+				}
+			}
+		},
 	},
 };
 </script>
