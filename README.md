@@ -4,7 +4,7 @@
 
 **NLP Annotator:**
 
-- NER Annotation --> 65%
+- NER Annotation --> 90%
 - Q&A Annotation --> 0%
 
 **to be completed !**
@@ -13,6 +13,12 @@
 
 <p align="center">
 <img src="./src/assets/ss-first-version.png">
+</p>
+
+## JSON output example
+
+<p align="center">
+<img src="./src/assets/ex_json_output.png">
 </p>
 
 ## TODO:
