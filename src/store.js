@@ -225,6 +225,9 @@ export const store = new Vuex.Store({
                         state.allTokenDetails[idx].endIndex,
                         state.allTokenDetails[idx].label,
                     ]);
+                } else {
+                    alert("You have not annotated any token!")
+                    return;
                 }
             }
 
