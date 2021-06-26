@@ -26,10 +26,10 @@ import { mapState, mapMutations } from "vuex";
 export default {
 	name: "classBlock",
 	computed: {
-		...mapState(["currentClass", "allClassesInfos", "allTokenDetails"]),
+		...mapState("ner",["currentClass", "allClassesInfos", "allTokenDetails"]),
 	},
 	methods: {
-		...mapMutations([
+		...mapMutations("ner",[
 			"deleteClass",
 			"setCurrentClass",
 			"removeToken",

@@ -1,33 +1,30 @@
-import Vue from "vue";
-import Vuex from "vuex";
 import axios from "axios";
 
-Vue.use(Vuex);
+const getDefaultState = () => {
+    return {
+        inputText: "",
+        inputReceived: false,
+        allClassesInfos: [],
+        allTokenDetails: [],
+        allTokensIdsSelected: [],
+        anyClasseAdded: false,
+        currentClass: {},
+        counterId: 0,
+        someColors: [
+            "#f29191",
+            "#cee5d0",
+            "#ffeb99",
+            "#deedf0",
+            "#bbbbbb",
+            "#e4bad4",
+            "#f69e7b",
+        ],
+    }
+}
 
-const state = {
-    inputText: "",
-    inputReceived: false,
-    allClassesInfos: [],
-    allTokenDetails: [],
-    allTokensIdsSelected: [],
-    anyClasseAdded: false,
-    currentClass: {},
-    counterId: 0,
-    someColors: [
-        "#f29191",
-        "#cee5d0",
-        "#ffeb99",
-        "#deedf0",
-        "#bbbbbb",
-        "#e4bad4",
-        "#f69e7b",
-    ],
-};
-
-const initialStateCopy = JSON.parse(JSON.stringify(state));
-
-export const store = new Vuex.Store({
-    state: state,
+export const nerStore = {
+    namespaced: true,
+    state: getDefaultState(),
     mutations: {
         setInputReceived(state, payload) {
             state.inputReceived = payload.value;
@@ -217,6 +214,13 @@ export const store = new Vuex.Store({
             const filename = "entities_for_spacy.json";
 
             const allClasses = state.allClassesInfos.map((x) => x.name);
+            const allLabel = state.allTokenDetails.map((x) => x.label);
+            
+            if (allLabel.every(function(i) {return i == null})) {
+                alert("You have not annotated any token!")
+                return;
+            }
+
             let allEntities = [];
             for (let idx in state.allTokenDetails) {
                 if (state.allTokenDetails[idx].label !== null) {
@@ -225,9 +229,6 @@ export const store = new Vuex.Store({
                         state.allTokenDetails[idx].endIndex,
                         state.allTokenDetails[idx].label,
                     ]);
-                } else {
-                    alert("You have not annotated any token!")
-                    return;
                 }
             }
 
@@ -254,8 +255,11 @@ export const store = new Vuex.Store({
             element.click();
             document.body.removeChild(element);
         },
-        resetAll() {
-            store.replaceState(initialStateCopy);
+        resetAll(state) {
+            // nerStore.replaceState(initialStateCopy);
+            Object.assign(state, getDefaultState())
+
+            
         },
     },
     getters: {
@@ -278,4 +282,4 @@ export const store = new Vuex.Store({
             return state.currentClass;
         },
     },
-});
+};
