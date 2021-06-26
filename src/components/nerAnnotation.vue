@@ -70,7 +70,7 @@ export default {
 		tokenBlock,
 	},
 	computed: {
-		...mapState([
+		...mapState("ner",[
 			"allClassesInfos",
 			"anyClasseAdded",
 			"allTokenDetails",
@@ -78,7 +78,7 @@ export default {
 			"allTokensIdsSelected",
 			"someColors",
 		]),
-		...mapGetters([
+		...mapGetters("ner",[
 			"isInputReceived",
 			"getInputText",
 			"getNumberOfClasses",
@@ -89,7 +89,7 @@ export default {
 		document.addEventListener("mouseup", this.selectTokens);
 	},
 	methods: {
-		...mapMutations([
+		...mapMutations("ner",[
 			"addClass",
 			"setCurrentClass",
 			"saveToken",

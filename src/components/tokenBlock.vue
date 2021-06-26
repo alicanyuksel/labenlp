@@ -36,10 +36,10 @@ export default {
 		isActive: Boolean
 	},
 	computed: {
-		...mapState(["allTokenDetails", "allTokenNames"]),
+		...mapState("ner",["allTokenDetails", "allTokenNames"]),
 	},
 	methods: {
-		...mapMutations(["removeToken","removeTokenBlock"]),
+		...mapMutations("ner",["removeToken","removeTokenBlock"]),
 	},
 };
 </script>

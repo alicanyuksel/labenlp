@@ -15,10 +15,10 @@ import { mapMutations, mapState } from "vuex";
 export default {
 	components: {},
 	computed: {
-		...mapState(["inputReceived"]),
+		...mapState("ner",["inputReceived"]),
 	},
 	methods: {
-		...mapMutations(["resetAll"]),
+		...mapMutations("ner",["resetAll"]),
 	},
 };
 </script>
