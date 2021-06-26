@@ -5,7 +5,7 @@ import nerAnnotation from './components/nerAnnotation.vue'
 import questionAnswerAnnotation from './components/questionAnswerAnnotation.vue'
 import homePage from './components/homePage.vue'
 
-import { store } from "./store/index.js";
+import { store } from "./store";
 
 Vue.use(VueRouter)
 
@@ -24,6 +24,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  store: store,
+  store,
   render: h => h(App),
 }).$mount('#app')
