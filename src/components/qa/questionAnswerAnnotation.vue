@@ -37,10 +37,7 @@
 			</div>
 		</div>
 
-		
-		<question-table v-if="isAnyQuestionAdded"/>
-		
-		
+		<question-table v-if="isAnyAnnotationAdded" />
 	</div>
 </template>
 
@@ -48,7 +45,7 @@
 import qaSidebar from "./qaSidebar.vue";
 import qaLoadFile from "./qaLoadFile.vue";
 import questionTable from "./questionTable.vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
 	name: "qaAnnotation",
@@ -59,21 +56,21 @@ export default {
 	},
 	data: function () {
 		return {
-			currentId: 1,
 			currentQuestion: "",
 			currentAnswer: "",
 		};
 	},
 	computed: {
+		...mapState("qa", ["counterId"]),
 		...mapGetters("qa", [
 			"isInputReceived",
-			"isAnyQuestionAdded",
+			"isAnyAnnotationAdded",
 			"getInputText",
 			"getCurrentQuestion",
 		]),
 	},
 	methods: {
-		...mapMutations("qa", ["addQuestion"]),
+		...mapMutations("qa", ["addAnnotation"]),
 		selectAnswer() {
 			let selection = document.getSelection();
 
@@ -93,20 +90,15 @@ export default {
 		},
 		saveAnnotation() {
 			let questionInfo = {
-				id: this.currentId,
+				id: this.counterId,
 				question: this.currentQuestion,
 				answer: this.currentAnswer,
 			};
-			this.addQuestion(questionInfo);
+			this.addAnnotation(questionInfo);
 
 			// to initialize the data
 			this.currentQuestion = "";
 			this.currentAnswer = "";
-			
-			// TODO
-			// may be another solution will be better ?
-			// counter id
-			this.currentId += 1
 		},
 	},
 };

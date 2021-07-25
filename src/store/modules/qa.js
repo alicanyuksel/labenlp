@@ -5,7 +5,7 @@ const getDefaultState = () => {
         inputText: "",
         inputReceived: false,
         allAnnoationDetails: [],
-        anyQuestionAdded: false,
+        anyAnnotationAdded: false,
         currentQuestion: "",
         counterId: 0,
     }
@@ -21,9 +21,21 @@ export const qaStore = {
         saveInput(state, payload) {
             state.inputText = payload.value;
         },
-        addQuestion(state, payload) {
+        addAnnotation(state, payload) {
             state.allAnnoationDetails.push(payload);
-            state.anyQuestionAdded = true;
+            state.anyAnnotationAdded = true;
+            state.counterId += 1;
+        },
+        deleteAnnotation (state, payload) {
+            state.allAnnoationDetails = state.allAnnoationDetails.filter(
+                (c) => c.id != payload
+            );
+
+            if (state.allAnnoationDetails.length === 0) {
+                state.counterId = 0;
+                state.anyAnnotationAdded = false;
+            }
+
         },
         resetAll(state) {
             Object.assign(state, getDefaultState())            
@@ -33,8 +45,8 @@ export const qaStore = {
         isInputReceived(state) {
             return state.inputReceived;
         },
-        isAnyQuestionAdded(state) {
-            return state.anyQuestionAdded;
+        isAnyAnnotationAdded(state) {
+            return state.anyAnnotationAdded;
         },
         getInputText(state) {
             return state.inputText;
@@ -44,6 +56,6 @@ export const qaStore = {
         },
         getAllAnnotations(state){
             return state.allAnnoationDetails;
-        }
+        },
     },
 };
