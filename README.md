@@ -11,15 +11,22 @@
 
 ## Screenshot from the first version beta
 
+#### NER Annotation
 <p align="center">
 <img src="./src/assets/ss-first-version.png">
 </p>
 
-## JSON output example
+#### JSON output example for NER
 
 <p align="center">
 <img src="./src/assets/ex_json_output.png">
 </p>
+
+#### Q&A Annotation
+<p align="center">
+<img src="./src/assets/qa-annotation.png">
+</p>
+
 
 ## TODO:
 
