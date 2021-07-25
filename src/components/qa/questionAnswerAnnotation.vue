@@ -18,36 +18,36 @@
 				<input
 					type="text"
 					id="input-question"
-					v-model="question"
+					v-model="currentQuestion"
 					placeholder="Type your question here..."
 				/>
 				<input
 					type="text"
 					id="input-answer"
 					disabled="disabled"
-					value=""
+					v-model="currentAnswer"
 					placeholder="Select your answer..."
 				/>
 				<input
 					type="submit"
 					id="submit-button"
 					value="Ajoute"
-					@click="saveQuestion"
+					@click="saveAnnotation"
 				/>
 			</div>
-			<div
-				class="card-body"
-				v-if="isAnyQuestionAdded == true && getNumberOfClasses > 0"
-			>
-				<class-block />
-			</div>
 		</div>
+
+		
+		<question-table v-if="isAnyQuestionAdded"/>
+		
+		
 	</div>
 </template>
 
 <script>
 import qaSidebar from "./qaSidebar.vue";
 import qaLoadFile from "./qaLoadFile.vue";
+import questionTable from "./questionTable.vue";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -55,51 +55,59 @@ export default {
 	components: {
 		qaSidebar,
 		qaLoadFile,
+		questionTable,
 	},
 	data: function () {
 		return {
-			question: '',
-		}
+			currentId: 1,
+			currentQuestion: "",
+			currentAnswer: "",
+		};
 	},
 	computed: {
 		...mapGetters("qa", [
 			"isInputReceived",
 			"isAnyQuestionAdded",
 			"getInputText",
-			"getCurrentQuestion"
+			"getCurrentQuestion",
 		]),
 	},
 	methods: {
 		...mapMutations("qa", ["addQuestion"]),
-		saveQuestion() {
-			let input = document.getElementById("input-question").value;
-			let questionInfo = {
-				question: input,
-				answer: null,
-			};
-			this.addQuestion(questionInfo);
-
-			// to initialize the input
-			document.getElementById("input-question").value = "";
-		},
 		selectAnswer() {
 			let selection = document.getSelection();
-			
-			// Get the first, end index of the text chosen by user
-			let startIndex = selection.anchorOffset;
-			let endIndex = selection.focusOffset;
 
 			if (selection.anchorOffset === selection.focusOffset) return;
-			else if (this.question.length === 0) {
+			else if (this.currentQuestion.length === 0) {
 				alert("You didn't write any question to start.");
 				selection.empty();
 				return;
 			}
 
-			let userAnswer = this.getInputText.substring(startIndex, endIndex)
-			document.getElementById("input-answer").value = userAnswer;
+			// Get the first, end index of the text chosen by user
+			let startIndex = selection.anchorOffset;
+			let endIndex = selection.focusOffset;
+
+			let userAnswer = this.getInputText.substring(startIndex, endIndex);
+			this.currentAnswer = userAnswer;
+		},
+		saveAnnotation() {
+			let questionInfo = {
+				id: this.currentId,
+				question: this.currentQuestion,
+				answer: this.currentAnswer,
+			};
+			this.addQuestion(questionInfo);
+
+			// to initialize the data
+			this.currentQuestion = "";
+			this.currentAnswer = "";
 			
-		}
+			// TODO
+			// may be another solution will be better ?
+			// counter id
+			this.currentId += 1
+		},
 	},
 };
 </script>

@@ -4,7 +4,7 @@ const getDefaultState = () => {
     return {
         inputText: "",
         inputReceived: false,
-        allQuestionsDetails: {},
+        allAnnoationDetails: [],
         anyQuestionAdded: false,
         currentQuestion: "",
         counterId: 0,
@@ -22,7 +22,8 @@ export const qaStore = {
             state.inputText = payload.value;
         },
         addQuestion(state, payload) {
-            state.allQuestionsDetails["question"] = payload.question;
+            state.allAnnoationDetails.push(payload);
+            state.anyQuestionAdded = true;
         },
         resetAll(state) {
             Object.assign(state, getDefaultState())            
@@ -40,6 +41,9 @@ export const qaStore = {
         },
         getCurrentQuestion(state) {
             return state.currentQuestion;
+        },
+        getAllAnnotations(state){
+            return state.allAnnoationDetails;
         }
     },
 };
