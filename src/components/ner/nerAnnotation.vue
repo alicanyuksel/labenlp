@@ -8,8 +8,12 @@
 
 		<div class="card" v-if="isInputReceived">
 			<div id="input-classes" class="card-header">
-				Add your labels :
-				<input type="text" id="input-class" value="" />
+				<input
+					type="text"
+					id="input-class"
+					placeholder="Add your labels..."
+					value=""
+				/>
 				<input
 					type="submit"
 					id="submit-button"
@@ -26,8 +30,8 @@
 		</div>
 
 		<div class="card" v-if="isInputReceived">
-			<div class="card-header">Your input</div>
-			<div class="card-body">
+			<div class="card-header">Your text</div>
+			<div id="input-text" class="card-body" @mouseup="selectTokens">
 				<token-block
 					v-for="token in allTokenDetails"
 					:key="token.id"
@@ -48,7 +52,9 @@
 				></token-block>
 			</div>
 			<div class="card-footer text-muted">
-				<span id="footer-button" @click="exportAnnotation">Export JSON</span>
+				<span id="footer-button" @click="exportAnnotation"
+					>Export JSON</span
+				>
 			</div>
 		</div>
 	</div>
@@ -70,7 +76,7 @@ export default {
 		tokenBlock,
 	},
 	computed: {
-		...mapState("ner",[
+		...mapState("ner", [
 			"allClassesInfos",
 			"anyClasseAdded",
 			"allTokenDetails",
@@ -78,23 +84,20 @@ export default {
 			"allTokensIdsSelected",
 			"someColors",
 		]),
-		...mapGetters("ner",[
+		...mapGetters("ner", [
 			"isInputReceived",
 			"getInputText",
 			"getNumberOfClasses",
 			"getCurrentClass",
 		]),
 	},
-	created() {
-		document.addEventListener("mouseup", this.selectTokens);
-	},
 	methods: {
-		...mapMutations("ner",[
+		...mapMutations("ner", [
 			"addClass",
 			"setCurrentClass",
 			"saveToken",
 			"saveTokenBlock",
-			"exportAnnotation"
+			"exportAnnotation",
 		]),
 		saveClass() {
 			let input = document.getElementById("input-class").value;
@@ -111,7 +114,6 @@ export default {
 		},
 		selectTokens() {
 			let selection = document.getSelection();
-
 			if (selection.anchorOffset === selection.focusOffset) return;
 			else if (Object.keys(this.getCurrentClass).length === 0) {
 				alert("You didn't choose any tag to start.");
@@ -178,7 +180,6 @@ export default {
 	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
 }
-
 
 .card-text {
 	font-size: 20px;
