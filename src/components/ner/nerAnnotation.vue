@@ -187,6 +187,7 @@ export default {
 
 .card-header {
 	background: rgb(228, 180, 103);
+	font-weight: bold;
 }
 
 .card {
