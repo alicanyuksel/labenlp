@@ -5,7 +5,7 @@
 **NLP Annotator:**
 
 - NER Annotation --> 90%
-- Q&A Annotation --> 20%
+- Q&A Annotation --> 40%
 
 **to be completed !**
 
@@ -31,4 +31,4 @@
 ## TODO:
 
 - why not, add a database, so we could save the annotations and come back to it later to finish it.
-- some improvement for token management
+- JSON output for Q&A model
