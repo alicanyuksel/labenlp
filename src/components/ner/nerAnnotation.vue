@@ -57,7 +57,7 @@
 <script>
 import loadTextFile from "./loadTextFile.vue";
 import nerSidebar from "./nerSidebar.vue";
-import classBlock from "./classBlock.vue";
+import classBlock from "./ner/classBlock.vue";
 import tokenBlock from "./tokenBlock.vue";
 import { mapState, mapGetters, mapMutations } from "vuex";
 
