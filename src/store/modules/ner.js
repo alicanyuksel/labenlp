@@ -46,7 +46,6 @@ export const nerStore = {
                 });
         },
         saveToken(state, payload) {
-            // TODO
             // get the list of startIndex
             let selectedTokenIds = payload;
 
