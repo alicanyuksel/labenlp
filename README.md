@@ -5,7 +5,7 @@
 **NLP Annotator:**
 
 - NER Annotation --> 90%
-- Q&A Annotation --> 0%
+- Q&A Annotation --> 20%
 
 **to be completed !**
 
