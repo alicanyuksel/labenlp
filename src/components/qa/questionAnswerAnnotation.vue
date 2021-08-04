@@ -38,6 +38,13 @@
 		</div>
 
 		<question-table v-if="isAnyAnnotationAdded" />
+		<input
+			v-if="isAnyAnnotationAdded"
+			type="submit"
+			id="export-button"
+			value="Export"
+			
+		/>
 	</div>
 </template>
 
@@ -130,6 +137,17 @@ input#input-answer {
 }
 
 #submit-button {
+	margin-top: 8px;
+	margin-left: 10px;
+	background-color: rgb(228, 180, 103);
+	border-style: none;
+	color: black;
+	border-radius: 8px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+}
+
+#export-button {
 	margin-top: 8px;
 	margin-left: 10px;
 	background-color: rgb(228, 180, 103);
