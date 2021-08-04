@@ -43,7 +43,7 @@
 			type="submit"
 			id="export-button"
 			value="Export"
-			
+			@click="exportAnnotation"
 		/>
 	</div>
 </template>
@@ -65,6 +65,8 @@ export default {
 		return {
 			currentQuestion: "",
 			currentAnswer: "",
+			currentAnswerStartIndex: null,
+			currentAnswerEndIndex: null,
 		};
 	},
 	computed: {
@@ -77,7 +79,7 @@ export default {
 		]),
 	},
 	methods: {
-		...mapMutations("qa", ["addAnnotation"]),
+		...mapMutations("qa", ["addAnnotation", "exportAnnotation"]),
 		selectAnswer() {
 			let selection = document.getSelection();
 
@@ -94,18 +96,28 @@ export default {
 
 			let userAnswer = this.getInputText.substring(startIndex, endIndex);
 			this.currentAnswer = userAnswer;
+			this.currentAnswerStartIndex = startIndex;
+			this.currentAnswerEndIndex = endIndex;
+		},
+		initializeData() {
+			// to initialize the data
+			this.currentQuestion = "";
+			this.currentAnswer = "";
+			this.currentAnswerStartIndex = "";
+			this.currentAnswerEndIndex = "";
 		},
 		saveAnnotation() {
 			let questionInfo = {
 				id: this.counterId,
 				question: this.currentQuestion,
 				answer: this.currentAnswer,
+				answerStartIndex: this.currentAnswerStartIndex,
+				answerEndIndex: this.currentAnswerEndIndex
 			};
 			this.addAnnotation(questionInfo);
 
 			// to initialize the data
-			this.currentQuestion = "";
-			this.currentAnswer = "";
+			this.initializeData();
 		},
 	},
 };
