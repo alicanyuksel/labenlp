@@ -20,6 +20,7 @@
 					id="input-question"
 					v-model="currentQuestion"
 					placeholder="Type your question here..."
+					autocomplete='off'
 				/>
 				<input
 					type="text"

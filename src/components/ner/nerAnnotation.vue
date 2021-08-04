@@ -12,6 +12,7 @@
 					type="text"
 					id="input-class"
 					placeholder="Add your labels..."
+					autocomplete='off'
 					value=""
 				/>
 				<input
