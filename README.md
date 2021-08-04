@@ -12,6 +12,7 @@
 **to be completed !**
 
 ## NER Annotation
+
 <p align="center">
 <img src="./src/assets/ss-first-version.png">
 </p>
@@ -57,6 +58,7 @@
 ```
 
 ## Q&A Annotation
+
 <p align="center">
 <img src="./src/assets/qa-annotation.png">
 </p>
@@ -92,8 +94,6 @@
 }
 ```
 
-
-## TODO:
+## TODO
 
 - why not, add a database, so we could save the annotations and come back to it later to finish it.
-- JSON output for Q&A model
