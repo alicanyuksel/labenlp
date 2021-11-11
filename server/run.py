@@ -8,7 +8,6 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 
-
 api.add_resource(Tokenizer, "/tokenize")
 
 if __name__ == "__main__":
