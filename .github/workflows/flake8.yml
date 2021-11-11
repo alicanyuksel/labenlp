@@ -1,4 +1,4 @@
-name: Pylint
+name: flake8
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        cd server/
         python -m pip install --upgrade pip
-        pip install -r server/requirements.txt
-        pip install pylint
-    - name: Analysing the code with pylint
+        pip install -r requirements.txt
+    - name: Lint with flake8
       run: |
-        pylint `ls -R|grep .py$|xargs`
+        flake8 .
