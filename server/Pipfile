@@ -1,0 +1,38 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+aniso8601 = "*"
+certifi = "*"
+chardet = "*"
+click = "*"
+greenlet = "*"
+idna = "*"
+itsdangerous = "*"
+joblib = "*"
+mccabe = "*"
+nltk = "*"
+pycodestyle = "*"
+pyflakes = "*"
+pytz = "*"
+regex = "*"
+requests = "*"
+six = "*"
+tqdm = "*"
+urllib3 = "*"
+Flask = "*"
+Flask-Cors = "*"
+Flask-RESTful = "*"
+Flask-SQLAlchemy = "*"
+Jinja2 = "*"
+MarkupSafe = "*"
+SQLAlchemy = "*"
+Werkzeug = "*"
+
+[dev-packages]
+flake8 = "*"
+
+[requires]
+python_version = "3.9"
