@@ -29,4 +29,5 @@ jobs:
         pipenv install
     - name: Lint with flake8
       run: |
-        pipenv run flake8
+        pipenv shell
+        flake8
