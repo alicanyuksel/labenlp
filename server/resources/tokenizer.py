@@ -20,6 +20,8 @@ class Tokenizer(Resource):
             nltk.download('punkt')
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
 
+
+
         return {
             "tokenDetails": [
                 {
