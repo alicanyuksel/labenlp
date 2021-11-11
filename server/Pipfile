@@ -33,6 +33,7 @@ Werkzeug = "*"
 
 [dev-packages]
 flake8 = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
