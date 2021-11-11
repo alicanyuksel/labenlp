@@ -1,15 +1,16 @@
 from flask_restful import Resource, reqparse
 from flask_cors import cross_origin
-
+import nltk
 from nltk.tokenize.treebank import TreebankWordTokenizer
 
 
 class Tokenizer(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument("text", required=True,
+    parser.add_argument("text",
+                        required=True,
                         help="This field cannot be left blank!")
 
-    @cross_origin(origin='*', headers=['Content-Type', 'Authorization'])
+    @cross_origin(origin="*", headers=["Content-Type", "Authorization"])
     def post(self):
         data = Tokenizer.parser.parse_args()
         input_text = data["text"]
@@ -17,14 +18,8 @@ class Tokenizer(Resource):
         try:
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
         except LookupError:
-            nltk.download('punkt')
+            nltk.download("punkt")
             spans = list(TreebankWordTokenizer().span_tokenize(input_text))
-
-
-
-
-
-
 
         return {
             "tokenDetails": [
@@ -35,6 +30,8 @@ class Tokenizer(Resource):
                     "endIndex": s[1],
                     "label": None,
                     "bgColor": None,
-                    "isActive": True                    
-                } for s in spans],
+                    "isActive": True,
+                }
+                for s in spans
+            ],
         }
