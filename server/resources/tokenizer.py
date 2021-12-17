@@ -6,9 +6,7 @@ from nltk.tokenize.treebank import TreebankWordTokenizer
 
 class Tokenizer(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument(
-        "text", required=True, help="This field cannot be left blank!"
-    )
+    parser.add_argument("text", required=True, help="This field cannot be left blank!")
 
     @cross_origin(origin="*", headers=["Content-Type", "Authorization"])
     def post(self):
