@@ -31,5 +31,5 @@ jobs:
       working-directory: ${{ env.working-directory }}
     - name: Lint with flake8
       run: |
-        pipenv run flake8
+        pipenv run flake8 --ignore=E203
       working-directory: ${{ env.working-directory }}
