@@ -1,8 +1,8 @@
 from flask import Flask
-from flask_restful import Api
 from flask_cors import CORS
-from resources import Tokenizer
+from flask_restful import Api
 
+from resources import Tokenizer
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"*": {"origins": "*"}})

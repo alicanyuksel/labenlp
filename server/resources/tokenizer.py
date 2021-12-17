@@ -1,14 +1,12 @@
-from flask_restful import Resource, reqparse
-from flask_cors import cross_origin
 import nltk
+from flask_cors import cross_origin
+from flask_restful import Resource, reqparse
 from nltk.tokenize.treebank import TreebankWordTokenizer
 
 
 class Tokenizer(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument("text",
-                        required=True,
-                        help="This field cannot be left blank!")
+    parser.add_argument("text", required=True, help="This field cannot be left blank!")
 
     @cross_origin(origin="*", headers=["Content-Type", "Authorization"])
     def post(self):
@@ -24,7 +22,7 @@ class Tokenizer(Resource):
         return {
             "tokenDetails": [
                 {
-                    "token": input_text[s[0]:s[1]],
+                    "token": input_text[s[0] : s[1]],
                     "type": "token",
                     "startIndex": s[0],
                     "endIndex": s[1],
